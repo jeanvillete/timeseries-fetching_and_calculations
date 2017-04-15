@@ -9,6 +9,8 @@ import org.springframework.util.StringUtils;
 import com.timeseries.exception.InvalidDataPoint;
 
 public class DataPoint {
+	
+	public static final String LOCAL_DATE_PATTERN = "dd-MMM-yyyy";
 
 	private String instrument;
 	private LocalDate date;
@@ -24,7 +26,7 @@ public class DataPoint {
 		
 		this.instrument = parsing[ 0 ];
 		try {
-			this.date = LocalDate.parse( parsing[ 1 ], DateTimeFormatter.ofPattern( "dd-MMM-yyyy" ) );
+			this.date = LocalDate.parse( parsing[ 1 ], DateTimeFormatter.ofPattern( LOCAL_DATE_PATTERN ) );
 		} catch ( DateTimeParseException e ) {
 			throw new InvalidDataPoint( e );
 		}
@@ -33,6 +35,10 @@ public class DataPoint {
 		} catch ( NumberFormatException e ) {
 			throw new InvalidDataPoint( e );
 		}
+	}
+	
+	void setMultiplier( float multiplier ) {
+		this.multiplier = multiplier;
 	}
 	
 	public String getInstrument() {
