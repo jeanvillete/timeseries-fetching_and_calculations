@@ -37,6 +37,16 @@ public class DataPoint {
 		}
 	}
 	
+	/**
+	 * DataPoint instances are equal if their String 'instrument' and LocalDate 'date' properties are equal.
+	 */
+	@Override
+	public boolean equals( Object other ) {
+		if ( !( other instanceof DataPoint ) ) return false;
+		DataPoint _other = ( DataPoint ) other;
+		return this.instrument.equals( _other.instrument ) && this.date.isEqual( _other.date );
+	}
+	
 	void setMultiplier( float multiplier ) {
 		this.multiplier = multiplier;
 	}
