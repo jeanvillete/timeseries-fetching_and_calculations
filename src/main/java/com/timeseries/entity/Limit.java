@@ -38,10 +38,9 @@ public class Limit {
 	
 	public void add( DataPoint dataPoint ) {
 		if ( this.data.contains( dataPoint.getDate() ) ) return;
-		
-		if ( this.data.size() < this.max ) {
+		else if ( this.data.size() < this.max )
 			this.data.add( dataPoint.getDate() );
-		} else if ( this.ordering.getComparator().compare( this.data.peek(), dataPoint.getDate() ) < 0 ) {
+		else if ( this.ordering.getComparator().compare( this.data.peek(), dataPoint.getDate() ) < 0 ) {
 			this.data.poll();
 			this.data.add( dataPoint.getDate() );
 		}
