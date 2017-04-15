@@ -100,7 +100,8 @@ public class DataPointTest {
 	
 	@Test
 	public void checkEquality() throws InvalidDataPoint {
-		Assert.isTrue( new DataPoint( "INSTRUMENT1,01-Jan-1996,123" ).equals( new DataPoint( "INSTRUMENT1,01-Jan-1996,321" ) ) );
+		Assert.isTrue( new DataPoint( "INSTRUMENT1,01-Jan-1996,123" ).equals( new DataPoint( "INSTRUMENT1,01-Jan-1996,321" ) ),
+				"The provided value for 'instrument' and 'date' were the same for both objects, only the double 'value' was different, so they have to be considered equal." );
 	}
 	
 }
