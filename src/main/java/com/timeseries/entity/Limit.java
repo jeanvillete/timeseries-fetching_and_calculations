@@ -1,6 +1,5 @@
 package com.timeseries.entity;
 
-import java.time.LocalDate;
 import java.util.PriorityQueue;
 
 import com.timeseries.entity.enums.Ordering;
@@ -9,7 +8,7 @@ public class Limit {
 	
 	private int max;
 	private Ordering ordering;
-	private PriorityQueue< LocalDate > data;
+	private PriorityQueue< DataPoint > data;
 	
 	/**
 	 * In this case the default ordering is Ordering.NEWEST
@@ -37,12 +36,12 @@ public class Limit {
 	}
 	
 	public void add( DataPoint dataPoint ) {
-		if ( this.data.contains( dataPoint.getDate() ) ) return;
+		if ( this.data.contains( dataPoint ) ) return;
 		else if ( this.data.size() < this.max )
-			this.data.add( dataPoint.getDate() );
-		else if ( this.ordering.getComparator().compare( this.data.peek(), dataPoint.getDate() ) < 0 ) {
+			this.data.add( dataPoint );
+		else if ( this.ordering.getComparator().compare( this.data.peek(), dataPoint ) < 0 ) {
 			this.data.poll();
-			this.data.add( dataPoint.getDate() );
+			this.data.add( dataPoint );
 		}
 	}
 	
@@ -50,7 +49,7 @@ public class Limit {
 		return this.data.size();
 	}
 
-	public LocalDate poll() {
+	public DataPoint poll() {
 		return this.data.poll();
 	}
 

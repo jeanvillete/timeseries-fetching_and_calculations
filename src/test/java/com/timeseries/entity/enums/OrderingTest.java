@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.springframework.util.Assert;
 
 import com.timeseries.entity.DataPoint;
+import com.timeseries.exception.InvalidDataPoint;
 
 public class OrderingTest {
 	
@@ -52,22 +53,34 @@ public class OrderingTest {
 
 	@Test
 	public void newest() {
-		PriorityQueue< LocalDate > pq = new PriorityQueue<>( Ordering.NEWEST.getComparator() );
-		Stream.of( unordered ).forEach( date -> pq.offer( LocalDate.parse( date, FORMATTER ) ) );
+		PriorityQueue< DataPoint > pq = new PriorityQueue<>( Ordering.NEWEST.getComparator() );
+		Stream.of( unordered ).forEach( date -> {
+			try {
+				pq.offer( new DataPoint( "INSTRUMENT," + date + ",1" ) );
+			} catch ( InvalidDataPoint e ) {
+				throw new RuntimeException( e );
+			}
+		});
 		
-		LocalDate ld;
+		DataPoint ld;
 		for ( int i = 0; ( ld = pq.poll() ) != null; i++ )
-			Assert.isTrue( ld.isEqual( LocalDate.parse( newestAsPriorityQueue[ i ], FORMATTER ) ) );
+			Assert.isTrue( ld.getDate().isEqual( LocalDate.parse( newestAsPriorityQueue[ i ], FORMATTER ) ) );
 	}
 	
 	@Test
 	public void oldest() {
-		PriorityQueue< LocalDate > pq = new PriorityQueue<>( Ordering.OLDEST.getComparator() );
-		Stream.of( unordered ).forEach( date -> pq.offer( LocalDate.parse( date, FORMATTER ) ) );
+		PriorityQueue< DataPoint > pq = new PriorityQueue<>( Ordering.OLDEST.getComparator() );
+		Stream.of( unordered ).forEach( date -> {
+			try {
+				pq.offer( new DataPoint( "INSTRUMENT," + date + ",1" ) );
+			} catch ( InvalidDataPoint e ) {
+				throw new RuntimeException( e );
+			}
+		});
 		
-		LocalDate ld;
+		DataPoint ld;
 		for ( int i = 0; ( ld = pq.poll() ) != null; i++ )
-			Assert.isTrue( ld.isEqual( LocalDate.parse( oldestAsPriorityQueue[ i ], FORMATTER ) ) );
+			Assert.isTrue( ld.getDate().isEqual( LocalDate.parse( oldestAsPriorityQueue[ i ], FORMATTER ) ) );
 	}
 	
 }

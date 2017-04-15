@@ -40,13 +40,13 @@ public class LimitTest {
 		limit.add( new DataPoint( "INSTRUMENT,09-Jan-1996,1" ) );
 		Assert.isTrue( limit.size() == 7, "It was expected have 7 elements at this point." );
 		
-		Assert.isTrue( limit.poll().isEqual( LocalDate.parse( "09-Jan-1996", FORMATTER ) ) );
-		Assert.isTrue( limit.poll().isEqual( LocalDate.parse( "07-Jan-1996", FORMATTER ) ) );
-		Assert.isTrue( limit.poll().isEqual( LocalDate.parse( "05-Jan-1996", FORMATTER ) ) );
-		Assert.isTrue( limit.poll().isEqual( LocalDate.parse( "04-Jan-1996", FORMATTER ) ) );
-		Assert.isTrue( limit.poll().isEqual( LocalDate.parse( "03-Jan-1996", FORMATTER ) ) );
-		Assert.isTrue( limit.poll().isEqual( LocalDate.parse( "02-Jan-1996", FORMATTER ) ) );
-		Assert.isTrue( limit.poll().isEqual( LocalDate.parse( "01-Jan-1996", FORMATTER ) ) );
+		Assert.isTrue( limit.poll().getDate().isEqual( LocalDate.parse( "09-Jan-1996", FORMATTER ) ) );
+		Assert.isTrue( limit.poll().getDate().isEqual( LocalDate.parse( "07-Jan-1996", FORMATTER ) ) );
+		Assert.isTrue( limit.poll().getDate().isEqual( LocalDate.parse( "05-Jan-1996", FORMATTER ) ) );
+		Assert.isTrue( limit.poll().getDate().isEqual( LocalDate.parse( "04-Jan-1996", FORMATTER ) ) );
+		Assert.isTrue( limit.poll().getDate().isEqual( LocalDate.parse( "03-Jan-1996", FORMATTER ) ) );
+		Assert.isTrue( limit.poll().getDate().isEqual( LocalDate.parse( "02-Jan-1996", FORMATTER ) ) );
+		Assert.isTrue( limit.poll().getDate().isEqual( LocalDate.parse( "01-Jan-1996", FORMATTER ) ) );
 	}
 	
 	@Test
@@ -74,13 +74,13 @@ public class LimitTest {
 		limit.add( new DataPoint( "INSTRUMENT,14-Apr-1996,1" ) );
 		Assert.isTrue( limit.size() == 7, "It was expected have 7 elements at this point." );
 		
-		Assert.isTrue( limit.poll().isEqual( LocalDate.parse( "05-Jan-1996", FORMATTER ) ) );
-		Assert.isTrue( limit.poll().isEqual( LocalDate.parse( "10-Jan-1996", FORMATTER ) ) );
-		Assert.isTrue( limit.poll().isEqual( LocalDate.parse( "13-Jan-1996", FORMATTER ) ) );
-		Assert.isTrue( limit.poll().isEqual( LocalDate.parse( "14-Jan-1996", FORMATTER ) ) );
-		Assert.isTrue( limit.poll().isEqual( LocalDate.parse( "15-Jan-1996", FORMATTER ) ) );
-		Assert.isTrue( limit.poll().isEqual( LocalDate.parse( "01-Feb-1996", FORMATTER ) ) );
-		Assert.isTrue( limit.poll().isEqual( LocalDate.parse( "14-Apr-1996", FORMATTER ) ) );
+		Assert.isTrue( limit.poll().getDate().isEqual( LocalDate.parse( "05-Jan-1996", FORMATTER ) ) );
+		Assert.isTrue( limit.poll().getDate().isEqual( LocalDate.parse( "10-Jan-1996", FORMATTER ) ) );
+		Assert.isTrue( limit.poll().getDate().isEqual( LocalDate.parse( "13-Jan-1996", FORMATTER ) ) );
+		Assert.isTrue( limit.poll().getDate().isEqual( LocalDate.parse( "14-Jan-1996", FORMATTER ) ) );
+		Assert.isTrue( limit.poll().getDate().isEqual( LocalDate.parse( "15-Jan-1996", FORMATTER ) ) );
+		Assert.isTrue( limit.poll().getDate().isEqual( LocalDate.parse( "01-Feb-1996", FORMATTER ) ) );
+		Assert.isTrue( limit.poll().getDate().isEqual( LocalDate.parse( "14-Apr-1996", FORMATTER ) ) );
 	}
 	
 }

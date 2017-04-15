@@ -1,20 +1,21 @@
 package com.timeseries.entity.enums;
 
-import java.time.LocalDate;
 import java.util.Comparator;
+
+import com.timeseries.entity.DataPoint;
 
 public enum Ordering {
 
-	NEWEST( ( first, second ) -> first.compareTo( second ) ),
-	OLDEST( ( first, second ) -> second.compareTo( first ) );
+	NEWEST( ( first, second ) -> first.getDate().compareTo( second.getDate() ) ),
+	OLDEST( ( first, second ) -> second.getDate().compareTo( first.getDate() ) );
 	
-	Ordering( Comparator< LocalDate > comparator ) {
+	Ordering( Comparator< DataPoint > comparator ) {
 		this.comparator = comparator;
 	}
 	
-	private Comparator< LocalDate > comparator;
+	private Comparator< DataPoint > comparator;
 	
-	public Comparator< LocalDate > getComparator() {
+	public Comparator< DataPoint > getComparator() {
 		return this.comparator;
 	}
 	
