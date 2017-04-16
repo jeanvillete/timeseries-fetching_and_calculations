@@ -16,7 +16,6 @@ import com.timeseries.entity.DateRange;
 import com.timeseries.entity.DaysOfWeekRange;
 import com.timeseries.entity.Limit;
 import com.timeseries.entity.Query;
-import com.timeseries.entity.Range;
 import com.timeseries.entity.ResultAs;
 import com.timeseries.entity.enums.Ordering;
 import com.timeseries.exception.InvalidDataPoint;
