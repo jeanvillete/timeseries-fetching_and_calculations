@@ -25,13 +25,8 @@ public class DateRange implements Range {
 	
 	@Override
 	public boolean isItInRange( DataPoint dataPoint ) {
-		boolean from = true; 
-		if ( this.from != null )
-			from = this.from.isEqual( dataPoint.getDate() ) || this.from.isAfter( dataPoint.getDate() );
-		
-		boolean to = true;
-		if ( this.to != null )
-			to = this.to.isEqual( dataPoint.getDate() ) || this.to.isAfter( dataPoint.getDate() );
+		boolean from = this.from == null ? true : this.from.isEqual( dataPoint.getDate() ) || this.from.isBefore( dataPoint.getDate() );
+		boolean to = this.to == null ? true : this.to.isEqual( dataPoint.getDate() ) || this.to.isAfter( dataPoint.getDate() );
 		
 		return from && to;
 	}
