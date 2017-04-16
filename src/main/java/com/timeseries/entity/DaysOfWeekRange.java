@@ -23,7 +23,7 @@ public class DaysOfWeekRange implements Range {
 	
 	@Override
 	public String toString() {
-		return "\n\tDays of Week Range = [" + this.daysOfWeek.stream().map( DayOfWeek::name ).collect( Collectors.joining( ", " ) ) + "]";
+		return "\n\tDays of Week Range = [" + ( this.daysOfWeek.stream().map( DayOfWeek::name ).collect( Collectors.joining( ", " ) ) ) + "]";
 	}
 
 }
