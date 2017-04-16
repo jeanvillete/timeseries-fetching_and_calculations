@@ -12,6 +12,7 @@ import com.timeseries.exception.InvalidDataPoint;
 public class DataPoint {
 	
 	public static final String LOCAL_DATE_PATTERN = "dd-MMM-yyyy";
+	public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern( LOCAL_DATE_PATTERN );
 
 	private String instrument;
 	private LocalDate date;

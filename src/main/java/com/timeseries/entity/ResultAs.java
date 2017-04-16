@@ -25,6 +25,12 @@ public abstract class ResultAs {
 		return this.limit;
 	}
 	
+	@Override
+	public String toString() {
+		return ( this.limit != null ? this.limit.toString() : "" ) +
+				"\n\tResult As";
+	}
+	
 	public static class Mean extends ResultAs {
 		
 		public Mean( Limit limit ) {
@@ -48,6 +54,11 @@ public abstract class ResultAs {
 			if ( this.getLimit() != null ) return this.getLimit().sum() / this.getLimit().size();
 			else return this.nrElements > 0.0 ? this.getCurrentSum() / this.nrElements : 0.0;
 		}
+		
+		@Override
+		public String toString() {
+			return super.toString() + " MEAN";
+		}
 	}
 	
 	public static class Sum extends ResultAs {
@@ -63,6 +74,11 @@ public abstract class ResultAs {
 		@Override
 		public double sum() {
 			return this.getLimit() != null ? this.getLimit().sum() : this.getCurrentSum();
+		}
+		
+		@Override
+		public String toString() {
+			return super.toString() + " SUM";
 		}
 	}
 }

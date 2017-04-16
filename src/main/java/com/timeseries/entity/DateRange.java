@@ -30,5 +30,12 @@ public class DateRange implements Range {
 		
 		return from && to;
 	}
+	
+	@Override
+	public String toString() {
+		return "\n\tDate Range" +
+				( this.from != null ? ", from = [" + this.from.format( DataPoint.FORMATTER ) + "]" : "" ) +
+				( this.to != null ? ", to = [" + this.to.format( DataPoint.FORMATTER ) + "]" : "" );
+	}
 
 }

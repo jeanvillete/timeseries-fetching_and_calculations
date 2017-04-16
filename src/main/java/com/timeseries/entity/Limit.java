@@ -65,4 +65,8 @@ public class Limit {
 		return this.data.poll();
 	}
 
+	@Override
+	public String toString() {
+		return "\n\tLimit, max = [" + this.max + "], ordering = [" + this.ordering.name() + "]" ;
+	}
 }
