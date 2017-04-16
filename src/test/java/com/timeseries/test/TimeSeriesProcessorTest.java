@@ -19,6 +19,9 @@ public class TimeSeriesProcessorTest {
 	@Test
 	public void betterCase() {
 		new TimeSeriesProcessor(
+			// any other instrument from the input file - sum of the newest 10 instrument values (in terms of the date).
+			( instrument ) -> new Query( instrument, new ResultAs.Sum( new Limit( 10, Ordering.NEWEST ) ) ),
+			
 			// INSTRUMENT1 – mean of all the values
 			new Query( "INSTRUMENT1", new ResultAs.Mean() ),
 			
@@ -26,12 +29,11 @@ public class TimeSeriesProcessorTest {
 			new Query( "INSTRUMENT2", new ResultAs.Mean(), DateRange.from( LocalDate.parse( "01-Jan-2014", DataPoint.FORMATTER ) ) ),
 			
 			// INSTRUMENT3 – any other statistical calculation that we can compute "on-the-fly" as we read the file (it's up to you)
-			// sum of the oldest 25 fridays
-			new Query( "INSTRUMENT3", new ResultAs.Sum( new Limit( 25, Ordering.OLDEST ) ), new DaysOfWeekRange( DayOfWeek.FRIDAY ) ), 
-			
-			// any other instrument from the input file - sum of the newest 10 instrument values (in terms of the date).
-			new Query( "INSTRUMENT4", new ResultAs.Sum( new Limit( 10, Ordering.NEWEST ) ) )
-		).process( "/home/jean/documents/natek/24004_test/example_input.txt" ).print();
+			new Query( "INSTRUMENT3", new ResultAs.Sum( new Limit( 25, Ordering.OLDEST ) ), new DaysOfWeekRange( DayOfWeek.FRIDAY ) ), // sum of the oldest 25 fridays 
+			new Query( "INSTRUMENT3", new ResultAs.Mean( new Limit( 10, Ordering.NEWEST ) ), new DaysOfWeekRange( DayOfWeek.MONDAY ) ) // mean of the newest 25 mondays
+		)
+		.process( "/home/jean/documents/natek/24004_test/example_input.txt" )
+		.print();
 	}
 
 }

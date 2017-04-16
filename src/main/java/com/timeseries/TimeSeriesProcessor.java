@@ -13,18 +13,25 @@ import java.util.stream.Stream;
 import org.springframework.util.StringUtils;
 
 import com.timeseries.entity.DataPoint;
+import com.timeseries.entity.OtherwiseQuery;
 import com.timeseries.entity.Query;
 import com.timeseries.exception.InvalidDataPoint;
 
 public class TimeSeriesProcessor {
+	
+	private OtherwiseQuery otherwiseQuery;
 
 	/**
 	 * key = INSTRUMENT
 	 * value = Query
 	 */
-	Map< String, List< Query > > data = new HashMap<>();
+	private Map< String, List< Query > > data = new HashMap<>();
 	
 	public TimeSeriesProcessor( Query... queries ) {
+		this( ( OtherwiseQuery ) null, queries);
+	}
+	
+	public TimeSeriesProcessor( OtherwiseQuery otherwiseQuery, Query... queries ) {
 		if ( queries == null || queries.length < 1 )
 			throw new IllegalArgumentException( "It is mandatory to provide at least on 'query' to be performed." );
 		
@@ -36,6 +43,8 @@ public class TimeSeriesProcessor {
 			}
 			_queries.add( query );
 		});
+		
+		this.otherwiseQuery = otherwiseQuery;
 	}
 	
 	public TimeSeriesProcessor process( String fileAddress ) {
@@ -55,8 +64,18 @@ public class TimeSeriesProcessor {
 			lines.forEach( line -> {
 				try {
 					DataPoint dataPoint = new DataPoint( line );
-					// retrieve the multiplier from database
-					for ( Query query : this.data.getOrDefault( dataPoint.getInstrument(), new ArrayList< Query >( 0 ) ) )
+					
+					// TODO retrieve the multiplier from database
+					
+					List< Query > queries = this.data.get( dataPoint.getInstrument() );
+					if ( queries == null )
+						if ( this.otherwiseQuery != null ) {
+							queries = new ArrayList<>();
+							queries.add( this.otherwiseQuery.get( dataPoint.getInstrument() ) );
+							this.data.put( dataPoint.getInstrument(), queries );
+						} else queries = new ArrayList<>( 0 );
+					
+					for ( Query query : queries )
 						query.add( dataPoint );
 				} catch ( InvalidDataPoint e ) { } // skip non business date, but also not well formed lines
 			});
@@ -65,8 +84,9 @@ public class TimeSeriesProcessor {
 		}
 		return this;
 	}
-
+	
 	public void print() {
-		this.data.values().forEach( System.out::println );
+		this.data.values().forEach( queries -> queries.forEach( System.out::println ) );
 	}
+	
 }
