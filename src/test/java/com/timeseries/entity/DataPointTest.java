@@ -8,6 +8,8 @@ import org.springframework.util.Assert;
 import com.timeseries.exception.InvalidDataPoint;
 
 public class DataPointTest {
+	
+	public static final int[] ALL_WEEK_LONG_AS_BUSINESS_DAYS = new int[]{ 1, 2, 3, 4, 5, 6, 7 };
 
 	@Test
 	public void betterCase() throws InvalidDataPoint {

@@ -45,8 +45,20 @@ public class Limit {
 		}
 	}
 	
+	/**
+	 * The current number of elements got on the Limit structure.
+	 * @return
+	 */
 	public int size() {
 		return this.data.size();
+	}
+	
+	/**
+	 * This method is responsable for calculating the values from all DataPoint on the current Limit data structure.
+	 * @return
+	 */
+	public double sum() {
+		return this.data.parallelStream().map( dataPoint -> dataPoint.getValue() ).reduce( ( x, y ) -> x + y ).orElse( 0.0 );
 	}
 
 	public DataPoint poll() {

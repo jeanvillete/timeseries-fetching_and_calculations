@@ -14,6 +14,7 @@ import com.timeseries.exception.InvalidDataPoint;
 public class OrderingTest {
 	
 	private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern( DataPoint.LOCAL_DATE_PATTERN );
+	public static final Integer[] ALL_WEEK_LONG_AS_BUSINESS_DAYS = new Integer[]{ 1, 2, 3, 4, 5, 6, 7 };
 	
 	public static final String[] unordered = new String[]{	
 		"05-Jan-1996",
@@ -56,7 +57,7 @@ public class OrderingTest {
 		PriorityQueue< DataPoint > pq = new PriorityQueue<>( Ordering.NEWEST.getComparator() );
 		Stream.of( unordered ).forEach( date -> {
 			try {
-				pq.offer( new DataPoint( "INSTRUMENT," + date + ",1" ) );
+				pq.offer( new DataPoint( "INSTRUMENT," + date + ",1", ALL_WEEK_LONG_AS_BUSINESS_DAYS ) );
 			} catch ( InvalidDataPoint e ) {
 				throw new RuntimeException( e );
 			}
@@ -72,7 +73,7 @@ public class OrderingTest {
 		PriorityQueue< DataPoint > pq = new PriorityQueue<>( Ordering.OLDEST.getComparator() );
 		Stream.of( unordered ).forEach( date -> {
 			try {
-				pq.offer( new DataPoint( "INSTRUMENT," + date + ",1" ) );
+				pq.offer( new DataPoint( "INSTRUMENT," + date + ",1", ALL_WEEK_LONG_AS_BUSINESS_DAYS ) );
 			} catch ( InvalidDataPoint e ) {
 				throw new RuntimeException( e );
 			}
