@@ -27,11 +27,11 @@ public abstract class ResultAs {
 	
 	public static class Mean extends ResultAs {
 		
-		protected Mean( Limit limit ) {
+		public Mean( Limit limit ) {
 			super( limit );
 		}
 		
-		protected Mean() {
+		public Mean() {
 			super( null );
 		}
 
@@ -52,11 +52,11 @@ public abstract class ResultAs {
 	
 	public static class Sum extends ResultAs {
 		
-		protected Sum( Limit limit ) {
+		public Sum( Limit limit ) {
 			super( limit );
 		}
 		
-		protected Sum() {
+		public Sum() {
 			super( null );
 		}
 

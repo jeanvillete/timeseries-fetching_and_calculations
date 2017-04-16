@@ -1,18 +1,19 @@
-package com.timeseries.entity;
+package com.timeseries.entity.test;
+
+import static com.timeseries.test.CommonStatics.ALL_WEEK_LONG_AS_BUSINESS_DAYS;
+import static com.timeseries.test.CommonStatics.FORMATTER;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 import org.junit.Test;
 import org.springframework.util.Assert;
 
+import com.timeseries.entity.DataPoint;
+import com.timeseries.entity.Limit;
 import com.timeseries.entity.enums.Ordering;
 import com.timeseries.exception.InvalidDataPoint;
 
 public class LimitTest {
-	
-	private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern( DataPoint.LOCAL_DATE_PATTERN );
-	public static final Integer[] ALL_WEEK_LONG_AS_BUSINESS_DAYS = new Integer[]{ 1, 2, 3, 4, 5, 6, 7 };
 
 	@Test
 	public void betterCaseForOldest() throws InvalidDataPoint {

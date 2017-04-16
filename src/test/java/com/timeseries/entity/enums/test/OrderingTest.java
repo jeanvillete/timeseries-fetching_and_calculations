@@ -1,7 +1,9 @@
-package com.timeseries.entity.enums;
+package com.timeseries.entity.enums.test;
+
+import static com.timeseries.test.CommonStatics.ALL_WEEK_LONG_AS_BUSINESS_DAYS;
+import static com.timeseries.test.CommonStatics.FORMATTER;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.PriorityQueue;
 import java.util.stream.Stream;
 
@@ -9,12 +11,10 @@ import org.junit.Test;
 import org.springframework.util.Assert;
 
 import com.timeseries.entity.DataPoint;
+import com.timeseries.entity.enums.Ordering;
 import com.timeseries.exception.InvalidDataPoint;
 
 public class OrderingTest {
-	
-	private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern( DataPoint.LOCAL_DATE_PATTERN );
-	public static final Integer[] ALL_WEEK_LONG_AS_BUSINESS_DAYS = new Integer[]{ 1, 2, 3, 4, 5, 6, 7 };
 	
 	public static final String[] unordered = new String[]{	
 		"05-Jan-1996",

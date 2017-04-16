@@ -1,4 +1,6 @@
-package com.timeseries.entity;
+package com.timeseries.entity.test;
+
+import static com.timeseries.test.CommonStatics.ALL_WEEK_LONG_AS_BUSINESS_DAYS;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -6,12 +8,13 @@ import java.math.RoundingMode;
 import org.junit.Test;
 import org.springframework.util.Assert;
 
+import com.timeseries.entity.DataPoint;
+import com.timeseries.entity.Limit;
+import com.timeseries.entity.ResultAs;
 import com.timeseries.entity.enums.Ordering;
 import com.timeseries.exception.InvalidDataPoint;
 
 public class ResultAsTest {
-	
-	public static final Integer[] ALL_WEEK_LONG_AS_BUSINESS_DAYS = new Integer[]{ 1, 2, 3, 4, 5, 6, 7 };
 	
 	private void fillResult( ResultAs result ) throws InvalidDataPoint {
 		result.add( new DataPoint( "INSTRUMENT,01-Jan-1996,1", ALL_WEEK_LONG_AS_BUSINESS_DAYS ) );
