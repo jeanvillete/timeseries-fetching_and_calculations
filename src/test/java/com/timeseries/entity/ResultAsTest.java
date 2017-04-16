@@ -1,6 +1,7 @@
 package com.timeseries.entity;
 
 import org.junit.Test;
+import org.springframework.util.Assert;
 
 import com.timeseries.exception.InvalidDataPoint;
 
@@ -25,7 +26,7 @@ public class ResultAsTest {
 		result.add( new DataPoint( "INSTRUMENT,01-Feb-1996,1", ALL_WEEK_LONG_AS_BUSINESS_DAYS ) );
 		result.add( new DataPoint( "INSTRUMENT,14-Apr-1996,1", ALL_WEEK_LONG_AS_BUSINESS_DAYS ) );
 		
-		System.out.println( result.sum() );
+		Assert.isTrue( result.sum() == 1.0 );
 	}
 	
 	@Test
@@ -45,7 +46,7 @@ public class ResultAsTest {
 		result.add( new DataPoint( "INSTRUMENT,01-Feb-1996,1", ALL_WEEK_LONG_AS_BUSINESS_DAYS ) );
 		result.add( new DataPoint( "INSTRUMENT,14-Apr-1996,1", ALL_WEEK_LONG_AS_BUSINESS_DAYS ) );
 		
-		System.out.println( result.sum() );
+		Assert.isTrue( result.sum() == 1.0 );
 	}
 	
 	@Test
@@ -65,7 +66,7 @@ public class ResultAsTest {
 		result.add( new DataPoint( "INSTRUMENT,01-Feb-1996,1", ALL_WEEK_LONG_AS_BUSINESS_DAYS ) );
 		result.add( new DataPoint( "INSTRUMENT,14-Apr-1996,1", ALL_WEEK_LONG_AS_BUSINESS_DAYS ) );
 		
-		System.out.println( result.sum() );
+		Assert.isTrue( result.sum() == 13.0 );
 	}
 	
 	@Test
@@ -85,7 +86,7 @@ public class ResultAsTest {
 		result.add( new DataPoint( "INSTRUMENT,01-Feb-1996,1", ALL_WEEK_LONG_AS_BUSINESS_DAYS ) );
 		result.add( new DataPoint( "INSTRUMENT,14-Apr-1996,1", ALL_WEEK_LONG_AS_BUSINESS_DAYS ) );
 		
-		System.out.println( result.sum() );
+		Assert.isTrue( result.sum() == 7.0 );
 	}
 	
 }
