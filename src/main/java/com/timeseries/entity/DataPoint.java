@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
+import java.util.Locale;
 
 import org.springframework.util.StringUtils;
 
@@ -12,7 +13,11 @@ import com.timeseries.exception.InvalidDataPoint;
 public class DataPoint {
 	
 	public static final String LOCAL_DATE_PATTERN = "dd-MMM-yyyy";
-	public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern( LOCAL_DATE_PATTERN );
+	public static final DateTimeFormatter FORMATTER;
+	static {
+		Locale.setDefault( Locale.ENGLISH );
+		FORMATTER = DateTimeFormatter.ofPattern( LOCAL_DATE_PATTERN, Locale.ENGLISH );
+	}
 
 	private String instrument;
 	private LocalDate date;
@@ -29,7 +34,7 @@ public class DataPoint {
 		this.instrument = parsing[ 0 ];
 		
 		try {
-			this.date = LocalDate.parse( parsing[ 1 ], DateTimeFormatter.ofPattern( LOCAL_DATE_PATTERN ) );
+			this.date = LocalDate.parse( parsing[ 1 ], FORMATTER );
 		} catch ( DateTimeParseException e ) {
 			throw new InvalidDataPoint( e );
 		}

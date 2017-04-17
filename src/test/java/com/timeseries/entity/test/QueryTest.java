@@ -1,7 +1,7 @@
 package com.timeseries.entity.test;
 
 import static com.timeseries.test.CommonStatics.ALL_WEEK_LONG_AS_BUSINESS_DAYS;
-import static com.timeseries.test.CommonStatics.FORMATTER;
+import static com.timeseries.entity.DataPoint.FORMATTER;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
