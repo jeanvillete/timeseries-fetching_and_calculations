@@ -41,7 +41,7 @@ public abstract class ResultAs {
 			super( null );
 		}
 
-		private long nrElements;
+		private long nrElements = 0;
 		
 		@Override
 		public void add( DataPoint dataPoint ) {
@@ -51,8 +51,8 @@ public abstract class ResultAs {
 
 		@Override
 		public double sum() {
-			if ( this.getLimit() != null ) return this.getLimit().sum() / this.getLimit().size();
-			else return this.nrElements > 0.0 ? this.getCurrentSum() / this.nrElements : 0.0;
+			if ( this.getLimit() != null ) return this.getLimit().size() > 0 ? this.getLimit().sum() / this.getLimit().size() : 0.0;
+			else return this.nrElements > 0 ? this.getCurrentSum() / this.nrElements : 0.0;
 		}
 		
 		@Override

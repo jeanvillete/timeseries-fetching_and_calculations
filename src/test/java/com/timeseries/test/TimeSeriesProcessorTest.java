@@ -34,6 +34,7 @@ public class TimeSeriesProcessorTest {
 	public void betterCase() {
 		new TimeSeriesProcessor(
 			// any other instrument from the input file - sum of the newest 10 instrument values (in terms of the date).
+			// I'm loading another file which I've set some records for an INSTRUMENT4
 			( instrument ) -> new Query( instrument, new ResultAs.Sum( new Limit( 10, Ordering.NEWEST ) ) ),
 			
 			// INSTRUMENT1 – mean of all the values
@@ -47,7 +48,11 @@ public class TimeSeriesProcessorTest {
 			new Query( "INSTRUMENT3", new ResultAs.Mean( new Limit( 10, Ordering.NEWEST ) ), new DaysOfWeekRange( DayOfWeek.MONDAY ) ) // mean of the newest 25 mondays
 		)
 		.setPriceModifier( new InstrumentPriceModifier( repository ) )
-		.process( "/home/jean/documents/natek/24004_test/example_input.txt" )
+//		.process( "src/test/resources/INSTRUMENT1.txt" )
+//		.process( "src/test/resources/INSTRUMENT2.txt" )
+//		.process( "src/test/resources/INSTRUMENT3.txt" )
+		.process( "src/test/resources/INSTRUMENT4.txt" )
+		.process( "src/test/resources/example_input.txt" )
 		.print();
 	}
 

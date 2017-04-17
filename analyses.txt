@@ -1,0 +1,36 @@
+[main goal] DETERMINE THE FINAL VALUE OF A GIVEN INSTRUMENT PRICE FOR A GIVEN DATE
+
+#I wish
+* a program which I can provide as argument;
+	- an input file which contains INSTRUMENTS alongside its data points (date with its related double value)
+	- queries to be performed on the input file, where I can query based on;
+		INSTRUMENT [mandatory]
+		RESULT_AS [mandatory] (mean|sum)
+		RANGE (optional, but just one can be picked up and it's based on dates)
+			-> range of date [optional] (from - to), it is ok specify only one (from or to)
+			-> days of week range [optional] (specific days of the week, e.g; only mondays and fridays)
+		LIMIT (optional, based on dates)
+			-> int value for maximum allowed elements (DataPoint)
+			-> ordering value (oldest|newest)	
+* as output, I wish to see on the console each INTRUMENT with its performed query/result.
+
+#technical requirements
+- save memory as much as possible, as the "PROGRAM SHOULD ALSO WORK FOR A FILE THAT HAS MANY GIGABYTES OF DATA"
+- set up a database with ONLY ONE TABLE, called INSTRUMENT_PRICE_MODIFIER
+	-> ID as pk
+	-> NAME for instrument name
+	-> MULTIPLIER double value that specifies the factor by which the original instrument value should be multiplied
+* Please assume that the values in the INSTRUMENT_PRICE_MODIFIER table can change frequently independently of the process you're implementing, but not more often than once every 5 seconds
+	- it means that we can query on the table a MULTIPLIER for the given INTRUMENT at some point in time, but if the current process has taken more than 5 seconds for the given INSTRUMENT, so query for MULTIPLIER again.
+	
+#moreover
+- the exercise didn't mention the values for INSTRUMENTS, so I defined; INSTRUMENT1 = 1.5, INSTRUMENT2 = 2.5 and INSTRUMENT3 = 4.5. All these values are set and can be changed on the artifactory INSTRUMENT_PRICE_MODIFIER.sql
+- I can apply more than one query for the same INTRUMENT, at the end, show each resulting query for its INSTRUMENT
+* Only interested in business dates, i.e. Monday-Friday
+	- it means that other records can be ignored/skiped
+- it was not defined on the exercise, so I assume that in case more than one INSTRUMENT with the same date appears on the file, only the first one is considered, even if their 'value' are different.
+- the solution is a linear one, O(n), it (time spent) grows as much as the input file grows, since the calculation is done on the fly, as each record in the file is parsed
+	
+*Notes;
+This program has been developed based on requirements defined on the exercise, and it is supposed to be considered only for it, but not at all for a production, specially because we deal with collections here and deal with collections considering parallel executions are not easy tasks.
+In a real life, probably frameworks such as Spring Batch and/or Spring Integration (Enterprise Integration Patterns) would be a reasonable option instead, which would import the input file to a structure such as a database (RDBMS or not), furthermore, most of desired queries could be performed on this stable database, almost avoiding any Java process for it.
