@@ -17,8 +17,7 @@ public class DataPoint {
 	private String instrument;
 	private LocalDate date;
 	private double value;
-	private float multiplier = 1.0F;
-	
+	private double multiplier = 1.0;
 	
 	public DataPoint( String line, Integer... businessDays ) throws InvalidDataPoint {
 		super();
@@ -65,9 +64,6 @@ public class DataPoint {
 		return this.instrument.equals( _other.instrument ) && this.date.isEqual( _other.date );
 	}
 	
-	void setMultiplier( float multiplier ) {
-		this.multiplier = multiplier;
-	}
 	
 	public String getInstrument() {
 		return instrument;
@@ -78,7 +74,10 @@ public class DataPoint {
 	public double getValue() {
 		return value;
 	}
-	public float getMultiplier() {
+	public void setMultiplier( double multiplier ) {
+		this.multiplier = multiplier;
+	}
+	public double getMultiplier() {
 		return multiplier;
 	}
 }

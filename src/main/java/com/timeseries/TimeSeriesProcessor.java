@@ -12,6 +12,7 @@ import java.util.stream.Stream;
 
 import org.springframework.util.StringUtils;
 
+import com.timeseries.component.InstrumentPriceModifier;
 import com.timeseries.entity.DataPoint;
 import com.timeseries.entity.OtherwiseQuery;
 import com.timeseries.entity.Query;
@@ -20,6 +21,7 @@ import com.timeseries.exception.InvalidDataPoint;
 public class TimeSeriesProcessor {
 	
 	private OtherwiseQuery otherwiseQuery;
+	private InstrumentPriceModifier instrumentPriceModifier;
 
 	/**
 	 * key = INSTRUMENT
@@ -48,6 +50,9 @@ public class TimeSeriesProcessor {
 	}
 	
 	public TimeSeriesProcessor process( String fileAddress ) {
+		if ( this.instrumentPriceModifier == null )
+			throw new IllegalStateException( "No Price Modifier has been provided yet." );
+		
 		if ( !StringUtils.hasText( fileAddress ) )
 			throw new IllegalArgumentException( "Argument 'fileAddress' is mandatory." );
 		
@@ -65,7 +70,8 @@ public class TimeSeriesProcessor {
 				try {
 					DataPoint dataPoint = new DataPoint( line );
 					
-					// TODO retrieve the multiplier from database
+					Double modifier = this.instrumentPriceModifier.getModifier( dataPoint.getInstrument() );
+					if ( modifier != null ) dataPoint.setMultiplier( modifier );
 					
 					List< Query > queries = this.data.get( dataPoint.getInstrument() );
 					if ( queries == null )
@@ -87,6 +93,11 @@ public class TimeSeriesProcessor {
 	
 	public void print() {
 		this.data.values().forEach( queries -> queries.forEach( System.out::println ) );
+	}
+
+	public TimeSeriesProcessor setPriceModifier( InstrumentPriceModifier instrumentPriceModifier ) {
+		this.instrumentPriceModifier = instrumentPriceModifier;
+		return this;
 	}
 	
 }

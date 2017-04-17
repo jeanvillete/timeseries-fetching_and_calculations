@@ -58,7 +58,7 @@ public class Limit {
 	 * @return
 	 */
 	public double sum() {
-		return this.data.parallelStream().map( dataPoint -> dataPoint.getValue() ).reduce( ( x, y ) -> x + y ).orElse( 0.0 );
+		return this.data.parallelStream().map( dataPoint -> dataPoint.getValue() * dataPoint.getMultiplier() ).reduce( ( x, y ) -> x + y ).orElse( 0.0 );
 	}
 
 	public DataPoint poll() {

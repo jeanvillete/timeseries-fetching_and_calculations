@@ -4,8 +4,15 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
 import com.timeseries.TimeSeriesProcessor;
+import com.timeseries.component.InstrumentPriceModifier;
 import com.timeseries.entity.DataPoint;
 import com.timeseries.entity.DateRange;
 import com.timeseries.entity.DaysOfWeekRange;
@@ -13,8 +20,15 @@ import com.timeseries.entity.Limit;
 import com.timeseries.entity.Query;
 import com.timeseries.entity.ResultAs;
 import com.timeseries.entity.enums.Ordering;
+import com.timeseries.repository.InstrumentPriceModifierRepository;
 
+@RunWith( SpringJUnit4ClassRunner.class )
+@ContextConfiguration( { "classpath:/spring-test.xml" } )
+@TestExecutionListeners( { DependencyInjectionTestExecutionListener.class } )
 public class TimeSeriesProcessorTest {
+	
+	@Autowired
+	InstrumentPriceModifierRepository repository;
 	
 	@Test
 	public void betterCase() {
@@ -32,6 +46,7 @@ public class TimeSeriesProcessorTest {
 			new Query( "INSTRUMENT3", new ResultAs.Sum( new Limit( 25, Ordering.OLDEST ) ), new DaysOfWeekRange( DayOfWeek.FRIDAY ) ), // sum of the oldest 25 fridays 
 			new Query( "INSTRUMENT3", new ResultAs.Mean( new Limit( 10, Ordering.NEWEST ) ), new DaysOfWeekRange( DayOfWeek.MONDAY ) ) // mean of the newest 25 mondays
 		)
+		.setPriceModifier( new InstrumentPriceModifier( repository ) )
 		.process( "/home/jean/documents/natek/24004_test/example_input.txt" )
 		.print();
 	}

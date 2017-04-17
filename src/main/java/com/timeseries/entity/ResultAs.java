@@ -14,7 +14,7 @@ public abstract class ResultAs {
 	
 	public void add( DataPoint dataPoint ) {
 		if ( this.limit != null ) this.limit.add( dataPoint );
-		else this.currentSum += dataPoint.getValue();
+		else this.currentSum += dataPoint.getValue() * dataPoint.getMultiplier();
 	}
 
 	protected double getCurrentSum() {
