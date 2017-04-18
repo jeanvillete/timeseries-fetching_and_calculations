@@ -1,0 +1,11 @@
+Instructions for the Hiring Manager;
+I've zipped the entire Eclipse project directory, it contains even the .git directory which shows my log trail.
+As soon as you import the project, on the root of the project structure there's a file called analyses.txt where I describe what I understood from the exercise and my proposed solution.
+
+About the code, in order to be run, please, open and execute with JUnit the class TimeSeriesProcessorTest.
+On this artifactory there's only one method which I left commented what I think would be important for your comprehension.
+I developed it as 'generic' as I could, and to be honest it has been really cool have worked on it.
+Furthermore, if it is ok, I'd like to release it on my github profile; https://github.com/jeanvillete/
+
+Note: This program has been developed based on requirements defined on the exercise, and it is supposed to be considered only for that, thus, of course shouldn't be considered for production.
+In a real life, probably frameworks such as Spring Batch and/or Spring Integration (Enterprise Integration Patterns) would be a reasonable option instead, which would import the input file to a structure such as a database (e.g; RDBMS), furthermore, most of desired queries could be performed on this stable database, almost avoiding any Java process for it.
